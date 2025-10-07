@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HUSSEIN AGRO-DEALER</title>
+  <style>
+    /* General body style */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8f5;
+      margin: 0;
+      padding: 20px;
+      color: #2e5d27;
+      text-align: center;
+    }
+
+    /* Header styling */
+    header {
+      border-bottom: 2px solid #2e5d27;
+      padding: 20px 0;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    /* Main title */
+    h1 {
+      font-size: 3em;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #245214;
+      text-shadow: 1px 1px 2px #9bc39c;
+    }
+
+    /* Subtitle */
+    header p {
+      margin: 10px 0 0 0;
+      font-size: 1.3em;
+      font-weight: 500;
+      color: #397a15;
+    }
+
+    /* Search toggle button acting as a link */
+    #searchLink {
+      position: absolute;
+      right: 20px;
+      top: 30px;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #38761d;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 5px 10px;
+      transition: color 0.3s ease;
+    }
+    #searchLink:hover {
+      color: #2e5d27;
+    }
+
+    /* Main content container */
+    main {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ddefd4;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(46, 93, 39, 0.3);
+      text-align: left;
+    }
+
+    /* Section headings */
+    h2 {
+      color: #2e5d27;
+      border-bottom: 2px solid #87ae7e;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Product list style */
+    ul.products {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 30px;
+    }
+    ul.products li {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Product buttons */
+    button.product-btn {
+      padding: 12px 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+
+    /* Unique product colors */
+    button#rice {
+      background: linear-gradient(45deg, #fae1c8, #d9b382);
+      color: #734d26;
+      box-shadow: 0 5px 15px #d9b382;
+    }
+    button#rice:hover {
+      background-position: right center;
+    }
+    button#maize {
+      background: linear-gradient(45deg, #f8e261, #c1b83f);
+      color: #4a4a24;
+      box-shadow: 0 5px 15px #c1b83f;
+    }
+    button#maize:hover {
+      background-position: right center;
+    }
+    button#potatoes {
+      background: linear-gradient(45deg, #c2d67b, #7f9a3e);
+      color: #36420d;
+      box-shadow: 0 5px 15px #7f9a3e;
+    }
+    button#potatoes:hover {
+      background-position: right center;
+    }
+
+    /* Price styling */
+    .price {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-left: 15px;
+      white-space: nowrap;
+    }
+    .rice-price {
+      color: #b37c3b;
+    }
+    .maize-price {
+      color: #92770f;
+    }
+    .potatoes-price {
+      color: #526522;
+    }
+
+    /* Product details panel */
+    #productDetails {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(46, 93, 39, 0.4);
+      padding: 25px;
+      margin-top: 30px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      display: none;
+      text-align: center;
+    }
+    #productDetails.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #productDetails h3 {
+      margin-top: 0;
+      color: #2e5d27;
+      font-size: 2em;
+    }
+    #productDetails p {
+      font-size: 1.1em;
+      color: #3a5f1b;
+    }
+
+    /* Product image animations */
+    .animated-rice,
+    .animated-maize,
+    .animated-potatoes {
+      margin: 20px auto 10px auto;
+      width: 120px;
+      height: 120px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: wave 2.5s infinite ease-in-out;
+    }
+    .animated-rice {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4152/4152916.png');
+    }
+    .animated-maize {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/743/743920.png');
+      animation: bounce 2.5s infinite ease-in-out;
+    }
+    .animated-potatoes {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3462/3462715.png');
+      animation: shake 2.5s infinite ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes wave {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      50% { transform: translateX(15px) rotate(15deg); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+
+    /* Search section styles */
+    #searchSection {
+      background: #a3c88f;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 30px auto;
+      max-width: 600px;
+      box-shadow: 0 8px 20px rgba(46, 93, 39, 0.45);
+      display: none;
+      color: #213d13;
+      text-align: center;
+    }
+    #searchSection.visible {
+      display: block;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    #searchInput {
+      width: 80%;
+      padding: 12px 15px;
+      border: 2px solid #4a7f1a;
+      border-radius: 30px;
+      font-size: 1.2em;
+      outline: none;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    #searchInput:focus {
+      border-color: #2e5d27;
+      box-shadow: 0 0 10px #2e5d27;
+    }
+    #searchBtn {
+      margin-left: 10px;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      color: white;
+      background: #417a1a;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #searchBtn:hover {
+      background: #2e5d27;
+    }
+
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer styling */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #506b34;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HUSSEIN AGRO-DEALER</h1>
+    <p>I am a farmer selling fresh farm products directly to you</p>
+    <!-- Search toggle button -->
+    <button id="searchLink" onclick="toggleSearch()">Search Products</button>
+  </header>
+
+  <main>
+    <!-- Search section -->
+    <section id="searchSection">
+      <input type="text" id="searchInput" placeholder="Search farm products..." oninput="handleSearch()" />
+      <button id="searchBtn" onclick="handleSearch()">Search</button>
+    </section>
+
+    <h2>Farm Products for Sale</h2>
+    <ul id="productList" class="products">
+      <li>
+        <button id="rice" class="product-btn" onclick="showDetails('rice')">Rice</button>
+        <div class="price rice-price">Price: K4,500 per kg</div>
+      </li>
+      <li>
+        <button id="maize" class="product-btn" onclick="showDetails('maize')">Maize</button>
+        <div class="price maize-price">Price: K0.00 per kg</div>
+      </li>
+      <li>
+        <button id="potatoes" class="product-btn" onclick="showDetails('potatoes')">Irish Potatoes</button>
+        <div class="price potatoes-price">Price: K0.00 per kg</div>
+      </li>
+    </ul>
+
+    <!-- Product details display area -->
+    <div id="productDetails">
+      <div id="productAnimation" class=""></div>
+      <h3 id="productTitle"></h3>
+      <p id="productPrice"></p>
+      <p id="productDesc"></p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Farmer's Fresh Products
+  </footer>
+
+  <script>
+    const products = {
+      rice: {
+        title: 'Rice',
+        price: 'K4,500 per kg',
+        description: 'High-quality, freshly harvested rice perfect for your meals.',
+        animationClass: 'animated-rice'
+      },
+      maize: {
+        title: 'Maize',
+        price: 'K0.00 per kg',
+        description: 'Fresh maize grains sourced from sustainable farms at negotiable price.',
+        animationClass: 'animated-maize'
+      },
+      potatoes: {
+        title: 'Irish Potatoes',
+        price: 'K0.00 per kg',
+        description: 'Nutritious and fresh Irish potatoes, ideal for any recipe at negotiable price.',
+        animationClass: 'animated-potatoes'
+      }
+    };
+
+    // Show product details with animation and scroll
+    function showDetails(productKey) {
+      const details = document.getElementById('productDetails');
+      const animationDiv = document.getElementById('productAnimation');
+      const title = document.getElementById('productTitle');
+      const price = document.getElementById('productPrice');
+      const desc = document.getElementById('productDesc');
+
+      const product = products[productKey];
+
+      title.textContent = product.title;
+      price.textContent = 'Price: ' + product.price;
+      desc.textContent = product.description;
+
+      animationDiv.className = '';
+      void animationDiv.offsetWidth; // force reflow to restart animation
+      animationDiv.classList.add(product.animationClass);
+
+      details.classList.add('visible');
+      details.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Toggle the visibility of the search section
+    function toggleSearch() {
+      const searchSection = document.getElementById('searchSection');
+      if (searchSection.classList.contains('visible')) {
+        searchSection.classList.remove('visible');
+      } else {
+        searchSection.classList.add('visible');
+        document.getElementById('searchInput').focus();
+      }
+    }
+
+    // Filter product list dynamically based on search input
+    function handleSearch() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const productList = document.getElementById('productList');
+      const items = productList.getElementsByTagName('li');
+
+      let anyVisible = false;
+      for (let i = 0; i < items.length; i++) {
+        const button = items[i].getElementsByTagName('button')[0];
+        const productName = button.textContent.toLowerCase();
+        if (productName.includes(input)) {
+          items[i].style.display = '';
+          anyVisible = true;
+        } else {
+          items[i].style.display = 'none';
+        }
+      }
+
+      // Hide product details if no products match the search
+      if (!anyVisible) {
+        document.getElementById('productDetails').classList.remove('visible');
+      }
+    }
+  </script>
+</body>
+</html>
